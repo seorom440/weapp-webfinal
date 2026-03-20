@@ -1,16 +1,18 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles, Brain, Cpu, Network, Bot } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const PhoneMockup = ({ className, children }: { className?: string, children: React.ReactNode }) => (
-  <div className={`relative bg-[#0a0a0a] border-[8px] border-[#1f1f1f] rounded-[3rem] shadow-[0_0_60px_rgba(16,185,129,0.15)] overflow-hidden ${className}`}>
+  <div className={`relative bg-[#111111] border-[8px] border-[#2a2a2a] rounded-[3rem] shadow-[0_0_80px_rgba(16,185,129,0.25)] overflow-hidden ${className}`}>
     {/* Hardware buttons */}
-    <div className="absolute top-24 -left-[8px] w-1 h-12 bg-[#1f1f1f] rounded-l-md"></div>
-    <div className="absolute top-40 -left-[8px] w-1 h-12 bg-[#1f1f1f] rounded-l-md"></div>
-    <div className="absolute top-32 -right-[8px] w-1 h-16 bg-[#1f1f1f] rounded-r-md"></div>
+    <div className="absolute top-24 -left-[8px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+    <div className="absolute top-40 -left-[8px] w-1 h-12 bg-[#2a2a2a] rounded-l-md"></div>
+    <div className="absolute top-32 -right-[8px] w-1 h-16 bg-[#2a2a2a] rounded-r-md"></div>
     {/* Dynamic Island / Notch */}
     <div className="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-20"></div>
     {/* Screen */}
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900 z-0"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-[#0a0a0a] to-gray-900 z-0"></div>
     <div className="relative z-10 h-full w-full p-6 pt-16 flex flex-col gap-4">
       {children}
     </div>
@@ -32,6 +34,8 @@ const AICard = ({ icon: Icon, name, color, delay }: { icon: any, name: string, c
 );
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-bg">
       {/* Immersive Falling iPhones Background - Clearer and Faster */}
@@ -82,8 +86,8 @@ export default function Hero() {
         </motion.div>
 
         {/* Subtle Gradient Overlay just to ensure text contrast in the center */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--color-bg)_90%)] z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bg via-transparent to-bg z-10 opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--color-bg)_100%)] z-10 opacity-70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-bg/80 via-transparent to-bg/80 z-10 opacity-40" />
       </div>
 
       {/* Background Glow */}
@@ -98,7 +102,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-surface/80 backdrop-blur-md text-sm font-medium text-ink-muted mb-8 shadow-lg"
           >
             <Sparkles size={16} className="text-accent" />
-            <span>AI-Native Digital Product Studio</span>
+            <span>{t('hero.badge')}</span>
           </motion.div>
 
           <motion.h1
@@ -107,9 +111,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl md:text-7xl lg:text-[88px] font-display font-bold leading-[1.05] tracking-tight mb-8 drop-shadow-2xl"
           >
-            We build <span className="text-accent">AI products.</span>
+            {t('hero.title.1')}<span className="text-accent">{t('hero.title.highlight')}</span>
             <br />
-            From idea to production.
+            {t('hero.title.2')}
           </motion.h1>
 
           <motion.p
@@ -118,7 +122,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-xl md:text-2xl text-ink-muted max-w-2xl mb-12 leading-relaxed drop-shadow-lg"
           >
-            We are not a traditional agency. We are intelligent solution builders combining software engineering, applied AI, and business system design.
+            {t('hero.desc')}
           </motion.p>
 
           <motion.div
@@ -131,14 +135,14 @@ export default function Hero() {
               href="#contact"
               className="w-full sm:w-auto px-8 py-4 bg-ink text-bg rounded-full font-semibold text-lg flex items-center justify-center gap-2 hover:bg-accent transition-colors group shadow-xl"
             >
-              Start a Project
+              {t('hero.cta.primary')}
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#projects"
               className="w-full sm:w-auto px-8 py-4 border border-white/10 bg-surface/80 backdrop-blur-md text-ink rounded-full font-semibold text-lg flex items-center justify-center hover:bg-white/5 transition-colors shadow-xl"
             >
-              View Our Work
+              {t('hero.cta.secondary')}
             </a>
           </motion.div>
         </div>

@@ -1,37 +1,40 @@
 import { motion } from 'motion/react';
 import { Lightbulb, LayoutTemplate, Bot, Workflow, Smartphone, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Services() {
+  const { t } = useLanguage();
+
   const services = [
     {
       icon: <Lightbulb size={28} />,
-      title: 'AI Strategy & Consulting',
-      desc: 'Process auditing and roadmap design for AI implementation.',
+      title: t('services.1.title'),
+      desc: t('services.1.desc'),
     },
     {
       icon: <LayoutTemplate size={28} />,
-      title: 'Web Apps & Platforms',
-      desc: 'Custom web applications with integrated AI (dashboards, portals, SaaS).',
+      title: t('services.2.title'),
+      desc: t('services.2.desc'),
     },
     {
       icon: <Bot size={28} />,
-      title: 'AI Agents',
-      desc: 'Autonomous agents automating complex tasks: analysis, generation, customer support.',
+      title: t('services.3.title'),
+      desc: t('services.3.desc'),
     },
     {
       icon: <Workflow size={28} />,
-      title: 'Automations & Workflows',
-      desc: 'Integrating existing systems with AI (CRMs, ERPs, external APIs).',
+      title: t('services.4.title'),
+      desc: t('services.4.desc'),
     },
     {
       icon: <Smartphone size={28} />,
-      title: 'Native Apps',
-      desc: 'iOS and Android applications. From design to store publication.',
+      title: t('services.5.title'),
+      desc: t('services.5.desc'),
     },
     {
       icon: <Globe size={28} />,
-      title: 'Premium Corporate Webs',
-      desc: 'High visual quality websites with advanced animations and editorial design.',
+      title: t('services.6.title'),
+      desc: t('services.6.desc'),
     },
   ];
 
@@ -45,7 +48,7 @@ export default function Services() {
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-display font-bold mb-6"
           >
-            Capabilities
+            {t('services.title')}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -54,7 +57,7 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-xl text-ink-muted leading-relaxed"
           >
-            We transform artificial intelligence into product. From the initial idea to the application in production.
+            {t('services.desc')}
           </motion.p>
         </div>
 

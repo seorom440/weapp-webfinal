@@ -1,21 +1,24 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Portfolio() {
+  const { t } = useLanguage();
+
   const projects = [
     {
-      title: 'Muebly',
-      category: 'Native App (iOS + Android)',
-      desc: 'Generative interior design app with AI. Users describe or photograph a space, and the AI generates photorealistic interior design proposals with furniture and palette selections.',
-      target: 'Design studios, real estate developers, premium individuals.',
+      title: t('portfolio.1.title'),
+      category: t('portfolio.1.cat'),
+      desc: t('portfolio.1.desc'),
+      target: t('portfolio.1.target'),
       color: 'from-emerald-500/20 to-transparent',
       image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop',
     },
     {
-      title: 'FamilyOS',
-      category: 'Web Platform & AI Agent',
-      desc: 'Investment intelligence platform for family offices. An agent that monitors markets, detects undervalued assets, generates automated due diligence reports, and proposes investment theses.',
-      target: 'Family offices, wealth managers, sophisticated private investors.',
+      title: t('portfolio.2.title'),
+      category: t('portfolio.2.cat'),
+      desc: t('portfolio.2.desc'),
+      target: t('portfolio.2.target'),
       color: 'from-blue-500/20 to-transparent',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop',
     },
@@ -32,10 +35,10 @@ export default function Portfolio() {
             className="max-w-2xl"
           >
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
-              Our Products
+              {t('portfolio.title')}
             </h2>
             <p className="text-xl text-ink-muted leading-relaxed">
-              These projects are our living portfolio. They are not clients: they are products that WEAPP builds and operates to prove our capabilities.
+              {t('portfolio.desc')}
             </p>
           </motion.div>
           <motion.a
@@ -45,7 +48,7 @@ export default function Portfolio() {
             href="#contact"
             className="inline-flex items-center gap-2 text-accent font-semibold hover:text-white transition-colors group"
           >
-            View all projects
+            {t('portfolio.viewAll')}
             <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </motion.a>
         </div>
@@ -96,7 +99,7 @@ export default function Portfolio() {
               {/* Target Audience Footer */}
               <div className="p-8 border-t border-white/5 bg-surface">
                 <p className="text-sm text-ink-muted">
-                  <strong className="text-ink">Target Audience:</strong> {project.target}
+                  <strong className="text-ink">{t('portfolio.target')}</strong> {project.target}
                 </p>
               </div>
             </motion.div>

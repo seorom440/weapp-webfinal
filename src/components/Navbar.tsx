@@ -1,10 +1,12 @@
 import { motion } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,9 +17,16 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'About', href: '#about' },
+    { name: t('nav.services'), href: '/#services' },
+    { name: t('nav.projects'), href: '/#projects' },
+    { name: t('nav.about'), href: '/#about' },
+    { name: 'Blog', href: '/blog' },
+  ];
+
+  const languages = [
+    { code: 'es', label: 'SPA', flag: '🇪🇸' },
+    { code: 'en', label: 'ENG', flag: '🇬🇧' },
+    { code: 'ca', label: 'CAT', flag: '󠁥󠁳󠁣󠁴󠁿' }, // Using a generic flag or just text if no specific emoji is preferred, but let's use text + emoji
   ];
 
   return (
@@ -31,7 +40,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="font-display font-bold text-xl tracking-tight flex items-center gap-2">
+        <a href="/" className="font-display font-bold text-xl tracking-tight flex items-center gap-2">
           <span>WEAPP</span>
           <span className="text-accent">BCN</span>
         </a>
@@ -49,11 +58,27 @@ export default function Navbar() {
               </a>
             ))}
           </div>
+
+          <div className="flex items-center gap-2 border-l border-white/10 pl-6">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => setLanguage(lang.code as any)}
+                className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium transition-colors ${
+                  language === lang.code ? 'bg-white/10 text-ink' : 'text-ink-muted hover:text-ink hover:bg-white/5'
+                }`}
+              >
+                <span>{lang.flag}</span>
+                <span>{lang.label}</span>
+              </button>
+            ))}
+          </div>
+
           <a
-            href="#contact"
+            href="/#contact"
             className="bg-ink text-bg px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-accent transition-colors"
           >
-            Let's Talk
+            {t('nav.contact')}
           </a>
         </div>
 
@@ -79,12 +104,31 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
+          
+          <div className="flex items-center gap-4 py-4 border-y border-white/5 my-2">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => {
+                  setLanguage(lang.code as any);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  language === lang.code ? 'bg-white/10 text-ink' : 'text-ink-muted'
+                }`}
+              >
+                <span className="text-lg">{lang.flag}</span>
+                <span>{lang.label}</span>
+              </button>
+            ))}
+          </div>
+
           <a
-            href="#contact"
-            className="bg-ink text-bg px-5 py-3 rounded-full text-center font-semibold mt-4"
+            href="/#contact"
+            className="bg-ink text-bg px-5 py-3 rounded-full text-center font-semibold mt-2"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Let's Talk
+            {t('nav.contact')}
           </a>
         </div>
       )}

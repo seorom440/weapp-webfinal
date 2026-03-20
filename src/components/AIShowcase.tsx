@@ -1,6 +1,9 @@
 import { motion } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function AIShowcase() {
+  const { t } = useLanguage();
+
   const models = [
     { name: 'Claude 3.5 Sonnet', provider: 'Anthropic' },
     { name: 'GPT-4o', provider: 'OpenAI' },
@@ -15,10 +18,10 @@ export default function AIShowcase() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-16">
           <div className="max-w-xl">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Model Agnostic. <span className="text-accent">Result Oriented.</span>
+              {t('showcase.title.1')}<span className="text-accent">{t('showcase.title.highlight')}</span>
             </h2>
             <p className="text-ink-muted text-lg">
-              We work with the most advanced AI models on the market, selecting the right intelligence engine for your specific business case.
+              {t('showcase.desc')}
             </p>
           </div>
         </div>

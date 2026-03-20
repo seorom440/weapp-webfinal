@@ -3,30 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import AIShowcase from './components/AIShowcase';
-import About from './components/About';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import CTA from './components/CTA';
-import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './context/LanguageContext';
+import Home from './pages/Home';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-bg text-ink relative selection:bg-accent selection:text-bg">
-      <div className="noise-bg" />
-      <Navbar />
-      <main>
-        <Hero />
-        <AIShowcase />
-        <About />
-        <Services />
-        <Portfolio />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+        </Routes>
+      </Router>
+    </LanguageProvider>
   );
 }
 

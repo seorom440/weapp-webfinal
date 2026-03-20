@@ -1,7 +1,10 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Mail } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function CTA() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="py-32 relative overflow-hidden">
       {/* Background Glow */}
@@ -20,12 +23,12 @@ export default function CTA() {
           </div>
           
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
-            Have a project? <br />
-            <span className="text-accent">Tell us about it.</span>
+            {t('cta.title.1')} <br />
+            <span className="text-accent">{t('cta.title.highlight')}</span>
           </h2>
           
           <p className="text-xl text-ink-muted mb-12 max-w-2xl mx-auto leading-relaxed">
-            Whether you need an AI strategy, a custom web app, or an autonomous agent, we're ready to build it.
+            {t('cta.desc')}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -33,14 +36,14 @@ export default function CTA() {
               href="mailto:hello@weappbcn.com"
               className="w-full sm:w-auto px-8 py-4 bg-ink text-bg rounded-full font-semibold text-lg flex items-center justify-center gap-2 hover:bg-accent transition-colors group"
             >
-              Contact Us
+              {t('cta.primary')}
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#"
               className="w-full sm:w-auto px-8 py-4 border border-white/10 bg-bg/50 backdrop-blur-sm text-ink rounded-full font-semibold text-lg flex items-center justify-center hover:bg-white/5 transition-colors"
             >
-              Schedule a Call
+              {t('cta.secondary')}
             </a>
           </div>
         </motion.div>

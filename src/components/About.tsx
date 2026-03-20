@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Brain, Terminal, Rocket, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const DNAVisual = () => (
   <div className="w-full h-full flex items-center justify-center">
@@ -73,30 +74,30 @@ const CodeVisual = () => {
   );
 };
 
-const ExecutionVisual = () => (
+const ExecutionVisual = ({ t }: { t: (key: string) => string }) => (
   <div className="w-full h-full flex items-center justify-center p-4 md:p-8">
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full max-w-lg">
       {/* Background Line */}
-      <div className="absolute left-[48px] right-[48px] h-1 bg-white/10 top-6 md:top-8" />
+      <div className="absolute left-[16.66%] right-[16.66%] h-1 bg-white/10 top-6 md:top-8" />
       
       {/* Animated Progress Line */}
       <motion.div 
-        className="absolute left-[48px] h-1 bg-accent top-6 md:top-8 origin-left"
-        style={{ width: 'calc(100% - 96px)' }}
+        className="absolute left-[16.66%] h-1 bg-accent top-6 md:top-8 origin-left"
+        style={{ width: '66.66%' }}
         animate={{ scaleX: [0, 1, 1] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Nodes */}
-      <div className="relative z-10 flex justify-between items-start w-full">
+      <div className="relative z-10 grid grid-cols-3 w-full">
         {[
-          { name: 'Idea', icon: Brain },
-          { name: 'Build', icon: Terminal },
-          { name: 'Production', icon: Rocket }
+          { name: t('about.visual.idea'), icon: Brain },
+          { name: t('about.visual.build'), icon: Terminal },
+          { name: t('about.visual.prod'), icon: Rocket }
         ].map((step, i) => {
           const Icon = step.icon;
           return (
-            <div key={step.name} className="flex flex-col items-center gap-3 md:gap-4 w-24">
+            <div key={step.name} className="flex flex-col items-center gap-3 md:gap-4">
               <motion.div 
                 className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[#050505] border-2 border-white/10 flex items-center justify-center relative z-10"
                 animate={{ 
@@ -117,44 +118,28 @@ const ExecutionVisual = () => (
 );
 
 const EuropeVisual = () => {
-  const europeParticles = [
-    // Iberia
-    { x: 15, y: 75 }, { x: 18, y: 80 }, { x: 22, y: 78 }, { x: 25, y: 72 }, { x: 12, y: 72 }, { x: 20, y: 85 },
-    // France
-    { x: 28, y: 60 }, { x: 32, y: 65 }, { x: 35, y: 58 }, { x: 38, y: 62 }, { x: 25, y: 55 }, { x: 30, y: 52 },
-    // UK/IRE
-    { x: 22, y: 45 }, { x: 25, y: 40 }, { x: 28, y: 35 }, { x: 30, y: 42 }, { x: 18, y: 42 }, { x: 22, y: 38 },
-    // Germany/Central
-    { x: 42, y: 50 }, { x: 45, y: 45 }, { x: 48, y: 52 }, { x: 52, y: 48 }, { x: 38, y: 45 }, { x: 40, y: 55 },
-    // Italy
-    { x: 45, y: 68 }, { x: 48, y: 75 }, { x: 52, y: 82 }, { x: 55, y: 88 }, { x: 42, y: 62 },
-    // Scandinavia
-    { x: 45, y: 25 }, { x: 48, y: 20 }, { x: 52, y: 15 }, { x: 55, y: 22 }, { x: 58, y: 18 }, { x: 42, y: 30 }, { x: 50, y: 28 },
-    // East
-    { x: 60, y: 45 }, { x: 65, y: 40 }, { x: 70, y: 48 }, { x: 75, y: 42 }, { x: 80, y: 45 }, { x: 55, y: 55 }, { x: 60, y: 52 },
-    // Balkans/Greece
-    { x: 58, y: 65 }, { x: 62, y: 72 }, { x: 65, y: 78 }, { x: 68, y: 85 }, { x: 55, y: 60 }, { x: 72, y: 80 }
-  ];
-
   return (
     <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
       <div className="relative w-full h-full max-w-md max-h-[300px] md:max-h-[400px]">
-        {/* Map Particles */}
-        {europeParticles.map((p, i) => (
-          <div 
-            key={i} 
-            className="absolute w-1 h-1 bg-white/10 rounded-full"
-            style={{ left: `${p.x}%`, top: `${p.y}%` }}
-          />
-        ))}
+        {/* Map of Europe Background */}
+        <div 
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/b/b8/Europe_blank_laea_location_map.svg")',
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'invert(1) brightness(2)'
+          }}
+        />
 
         {/* Cities */}
         {[
-          { name: 'Barcelona', x: '22%', y: '78%', active: true },
-          { name: 'Paris', x: '32%', y: '60%' },
-          { name: 'Berlin', x: '48%', y: '45%' },
-          { name: 'London', x: '28%', y: '42%' },
-          { name: 'Amsterdam', x: '38%', y: '48%' },
+          { name: 'Barcelona', x: '35%', y: '75%', active: true },
+          { name: 'Paris', x: '42%', y: '60%' },
+          { name: 'Berlin', x: '55%', y: '50%' },
+          { name: 'London', x: '38%', y: '52%' },
+          { name: 'Amsterdam', x: '45%', y: '50%' },
         ].map((city, i) => (
           <div key={city.name} className="absolute flex flex-col items-center gap-2 -translate-x-1/2 -translate-y-1/2 z-10" style={{ left: city.x, top: city.y }}>
             <motion.div 
@@ -168,67 +153,68 @@ const EuropeVisual = () => {
 
         {/* Network Lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-          <motion.line x1="22%" y1="78%" x2="32%" y2="60%" stroke="rgba(16,185,129,0.5)" strokeWidth="2" strokeDasharray="6 6" animate={{ strokeDashoffset: [24, 0] }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} />
-          <line x1="32%" y1="60%" x2="48%" y2="45%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-          <line x1="32%" y1="60%" x2="28%" y2="42%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-          <line x1="28%" y1="42%" x2="38%" y2="48%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-          <line x1="38%" y1="48%" x2="48%" y2="45%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+          <motion.line x1="35%" y1="75%" x2="42%" y2="60%" stroke="rgba(16,185,129,0.5)" strokeWidth="2" strokeDasharray="6 6" animate={{ strokeDashoffset: [24, 0] }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} />
+          <line x1="42%" y1="60%" x2="55%" y2="50%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+          <line x1="42%" y1="60%" x2="38%" y2="52%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+          <line x1="38%" y1="52%" x2="45%" y2="50%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+          <line x1="45%" y1="50%" x2="55%" y2="50%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
         </svg>
       </div>
     </div>
   );
 }
 
-const features = [
-  {
-    id: 'dna',
-    title: 'AI-Native DNA',
-    description: 'We are not a traditional agency adding AI on top. We build intelligent systems from the ground up.',
-    icon: Brain,
-    visual: <DNAVisual />
-  },
-  {
-    id: 'business',
-    title: 'Business First',
-    description: 'We understand your business processes first, then apply the right technology to solve real bottlenecks.',
-    icon: Terminal,
-    visual: <CodeVisual />
-  },
-  {
-    id: 'execution',
-    title: 'End-to-End Execution',
-    description: 'From strategic consulting to deploying high-performance web apps, native apps, and autonomous agents.',
-    icon: Rocket,
-    visual: <ExecutionVisual />
-  },
-  {
-    id: 'europe',
-    title: 'European Vision',
-    description: 'Based in Barcelona, we build with a deep understanding of the European regulatory context (GDPR).',
-    icon: Globe,
-    visual: <EuropeVisual />
-  }
-];
-
 export default function About() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      id: 'dna',
+      title: t('about.pillar.1.title'),
+      description: t('about.pillar.1.desc'),
+      icon: Brain,
+      visual: <DNAVisual />
+    },
+    {
+      id: 'business',
+      title: t('about.pillar.2.title'),
+      description: t('about.pillar.2.desc'),
+      icon: Terminal,
+      visual: <CodeVisual />
+    },
+    {
+      id: 'execution',
+      title: t('about.pillar.3.title'),
+      description: t('about.pillar.3.desc'),
+      icon: Rocket,
+      visual: <ExecutionVisual t={t} />
+    },
+    {
+      id: 'europe',
+      title: t('about.pillar.4.title'),
+      description: t('about.pillar.4.desc'),
+      icon: Globe,
+      visual: <EuropeVisual />
+    }
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % features.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [features.length]);
 
   return (
     <section id="about" className="py-24 md:py-32 bg-bg relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Built differently.
+            {t('about.badge')}
           </h2>
           <p className="text-xl text-ink-muted max-w-2xl mx-auto">
-            Our approach combines deep technical expertise with a relentless focus on business outcomes.
+            {t('about.title')}
           </p>
         </div>
 
